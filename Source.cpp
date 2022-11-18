@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctime>
+#include <conio.h>
 
 /////////////////////////////////////////
 
@@ -26,6 +27,9 @@ void HandleEnemy();
 int	Modulo(int nb, int mod);
 void HandlePlayer(char input);
 int rando(int a, int b);
+int check(int a, int b, int c, int d);
+
+
 
 /////////////////////////////////////////0
 
@@ -36,9 +40,11 @@ int main()
 	int E1x = rando(0, 4); /*0-3*/
 	int E2x = rando(4, 4); //5-7
 	int Px = rando(0, 4); //0-3
-	int Py = rando(5, 4); //5-8
+	int Py = rando(7, 3); //5-8
 	int E1y = rando(1, 3); //1-3
-	int E2y = rando(3, 3); //3-5
+	int E2y = rando(4, 3); //4-5
+	
+	
 	//Initial positions
 	player.x = Px, player.y = Py;  // Note these are currently constant
 	target.x = Tx, target.y = 0;
@@ -50,13 +56,16 @@ int main()
 	{
 		DrawMap();  // First redraw the game
 
-		char input = NULL;  // Redeclaring this clears the variable for each game frame
-
 		printf("Enter a choice: a(Left), d(Right), w(Up), s(Down) and e(Exit)\n");
-		scanf_s(" %c", &input, 1);  // Note we feed the _address_ of input into scanf_s here
 
-		if (input == 'e')
-			goto Exit;  // GOTO here, danger ... find them all!
+		char input = _getch();  // Gets input without typing enter
+
+		//scanf_s(" %c", &input, 1);  // Note we feed the _address_ of input into scanf_s here
+
+		if (input == 'e') {
+			printf("\n");
+			return 0;
+		}
 		else
 		{
 			HandlePlayer(input);
@@ -69,23 +78,21 @@ int main()
 				(player.x == enemy2.x && player.y == enemy2.y))
 			{
 				printf("Sorry, you failed...\n");
-				goto Exit;
+				printf("\n");
+				return 0;
 			}
 			else if (player.x == target.x && player.y == target.y)		//Target reached
 			{
 				printf("Congratulations, you won...\n");
-				goto Exit;
+				printf("\n");
+				return 0;
 			}
 		}
 	}
-
-Exit:	// Label
-	printf("\n");
-	return 0;
 }
 
 /////////////////////////////////////////
-int c = 9;
+int c = 10; // keep even number or breaks enemy 1
 void DrawMap()
 {
 	int y = 0;
@@ -93,14 +100,14 @@ void DrawMap()
 	{
 		int s = 0;
 		printf("\t");	//may need to change, how to make match the columns? Fixed
-		for (s = 0; s < (c*3)-2;s++){
+		for (s = 0; s < (c*3)+1;s++){
 			printf("-");
 		}
 		printf("\n");
 		printf("\t");
 
 		int x = 0;
-		for (x = 0; x < c; x++)			//draw columns, how could this be a different number? Set Diff c value
+		for (x = 0; x < c + 1; x++)			//draw columns, how could this be a different number? Set Diff c value
 		{
 			printf("|");
 
@@ -120,7 +127,7 @@ void DrawMap()
 	}
 	int d = 0;
 	printf("\t");	//may need to change, how to make match the columns? Fixed
-	for (d = 0; d < (c * 3) - 2; d++) {
+	for (d = 0; d < (c * 3) + 1; d++) {
 		printf("-");
 	}
 	printf("\n");
@@ -168,7 +175,7 @@ void HandleEnemy()
 	else
 		enemy1.x--;
 
-	if (enemy1.x == 0 || enemy1.x == 5)
+	if (enemy1.x == 0 || enemy1.x == c - 1) 
 		direction1 = !direction1;
 
 	//Enemy2
@@ -177,7 +184,7 @@ void HandleEnemy()
 	else
 		enemy2.x += 2;
 
-	if (enemy2.x <= 0 || enemy2.x >= 5)
+	if (enemy2.x <= 0 || enemy2.x >= c -1)
 	{
 		if (direction2)
 			enemy2.x++;
@@ -203,3 +210,15 @@ int Modulo(int nb, int mod)
 int rando(int a, int b) {
 	return (a+rand()%b);
 }
+
+/////////////////////////////////////////
+
+int check(int a, int b, int ab, int ba) {
+	if (a == b) {
+		int x = (ab + rand() % ba);
+		x = b;
+		return b;
+	}
+}
+
+

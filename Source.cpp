@@ -16,6 +16,7 @@ struct Position
 struct Position player;
 struct Position target;
 struct Position enemy1, enemy2;
+struct Position object;
 
 // Note 1 = true, 0 = false
 char direction1 = 1, direction2 = 1;
@@ -29,8 +30,6 @@ void HandlePlayer(char input);
 int rando(int a, int b);
 int check(int a, int b, int c, int d);
 
-
-
 /////////////////////////////////////////0
 
 int main()
@@ -40,9 +39,11 @@ int main()
 	int E1x = rando(0, 4); /*0-3*/
 	int E2x = rando(4, 4); //5-7
 	int Px = rando(0, 4); //0-3
+	int Obx = rando(0, 4);
 	int Py = rando(7, 3); //5-8
 	int E1y = rando(1, 3); //1-3
 	int E2y = rando(4, 3); //4-5
+	int Oby = rando(3, 3);
 	
 	
 	//Initial positions
@@ -50,6 +51,7 @@ int main()
 	target.x = Tx, target.y = 0;
 	enemy1.x = E1x, enemy1.y = E1y;
 	enemy2.x = E2x, enemy2.y = E2y;
+	object.x = Obx, object.y = Oby;
 
 	//Game Loop
 	while (1)  // What could stop this loop?  It is set to always true
@@ -99,8 +101,11 @@ void DrawMap()
 	for (y = 0; y < c; y++)				//draw rows, how could this be a different number? Set Diff c value
 	{
 		int s = 0;
+
+		
+
 		printf("\t");	//may need to change, how to make match the columns? Fixed
-		for (s = 0; s < (c*3)+1;s++){
+		for (s = 0; s < (c*4)+1;s++){
 			printf("-");
 		}
 		printf("\n");
@@ -113,21 +118,23 @@ void DrawMap()
 
 			// Note these are one-line IF statements, for more lines you would need {} code blocks
 			if (x == target.x && y == target.y)			//Target position
-				printf("T ");
+				printf("[T]");
 			else if (x == enemy1.x && y == enemy1.y)	//Enemy1 position
-				printf("<>");
+				printf("< >");
 			else if (x == enemy2.x && y == enemy2.y)	//Enemy2 position
-				printf("<>");
+				printf("< >");
 			else if (x == player.x && y == player.y)	//Player position
-				printf("P ");
+				printf("-_-");
+			else if (x == object.x && y == object.y)
+				printf(" # ");
 			else
-				printf("  ");
+				printf("   ");
 		}
 		printf("\n");
 	}
 	int d = 0;
 	printf("\t");	//may need to change, how to make match the columns? Fixed
-	for (d = 0; d < (c * 3) + 1; d++) {
+	for (d = 0; d < (c * 4) + 1; d++) {
 		printf("-");
 	}
 	printf("\n");

@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <ctime>
 #include <conio.h>
+#include <Windows.h>
 
 /////////////////////////////////////////
 
@@ -61,7 +62,7 @@ int main()
 		DrawMap();  // First redraw the game
 
 		printf("Enter a choice: a(Left), d(Right), w(Up), s(Down) and e(Exit)\n");
-
+		
 		char input = _getch();  // Gets input without typing enter
 
 		//scanf_s(" %c", &input, 1);  // Note we feed the _address_ of input into scanf_s here
@@ -80,7 +81,9 @@ int main()
 
 			// Interaction code here
 			if ((player.x == enemy1.x && player.y == enemy1.y) ||		//colliding with an enemy
-				(player.x == enemy2.x && player.y == enemy2.y))
+				(player.x == enemy2.x && player.y == enemy2.y) 
+				||(player.x == object.x && player.y == object.y)
+				)
 			{
 				printf("Sorry, you failed...\n");
 				printf("\n");
@@ -109,6 +112,7 @@ void DrawMap()
 
 		printf("\t");	//may need to change, how to make match the columns? Fixed
 		for (s = 0; s < (c*4)+1;s++){
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 5);
 			printf("-");
 		}
 		printf("\n");
@@ -120,16 +124,31 @@ void DrawMap()
 			printf("|");
 
 			// Note these are one-line IF statements, for more lines you would need {} code blocks
-			if (x == target.x && y == target.y)			//Target position
+			if (x == target.x && y == target.y) {
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 2);
 				printf("[T]");
-			else if (x == enemy1.x && y == enemy1.y)	//Enemy1 position
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 5);
+			}			//Target position
+			else if (x == enemy1.x && y == enemy1.y) {
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
 				printf("< >");
-			else if (x == enemy2.x && y == enemy2.y)	//Enemy2 position
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 5);
+			}	//Enemy1 position
+			else if (x == enemy2.x && y == enemy2.y) {
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
 				printf("< >");
-			else if (x == player.x && y == player.y)	//Player position
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 5);
+			}	//Enemy2 position
+			else if (x == player.x && y == player.y) {
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
 				printf("-_-");
-			else if (x == object.x && y == object.y)
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 5);
+			}	//Player position
+			else if (x == object.x && y == object.y) {
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 3);
 				printf("###");
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 5);
+			}
 			else
 				printf("   ");
 		}
@@ -149,6 +168,8 @@ void HandlePlayer(char input)
 {
 	int tempx = player.x,
 		tempy = player.y;
+	int oby = object.y;
+	int obx = object.x;
 
 	// l, r, u, d?  really? Fixed
 	if (input == 'a')
@@ -170,8 +191,6 @@ void HandlePlayer(char input)
 		tempy++;
 
 	// Pacman style, based on a fixed size
-	
-	
 	if (!(tempx < 0) && !(tempx > c-1)) {
 		player.x = tempx;
 		//system("PAUSE>NULL");
@@ -180,6 +199,7 @@ void HandlePlayer(char input)
 		player.y = tempy;
 		//system("PAUSE>NULL");
 	}
+	
 }
 
 

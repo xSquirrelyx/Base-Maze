@@ -112,7 +112,7 @@ void DrawMap()
 
 		printf("\t");	//may need to change, how to make match the columns? Fixed
 		for (s = 0; s < (c*4)+1;s++){
-			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 5);
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 9);
 			printf("-");
 		}
 		printf("\n");
@@ -127,27 +127,27 @@ void DrawMap()
 			if (x == target.x && y == target.y) {
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 2);
 				printf("[T]");
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 5);
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 9);
 			}			//Target position
 			else if (x == enemy1.x && y == enemy1.y) {
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
 				printf("< >");
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 5);
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 9);
 			}	//Enemy1 position
 			else if (x == enemy2.x && y == enemy2.y) {
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
 				printf("< >");
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 5);
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 9);
 			}	//Enemy2 position
 			else if (x == player.x && y == player.y) {
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
 				printf("-_-");
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 5);
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 9);
 			}	//Player position
 			else if (x == object.x && y == object.y) {
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 3);
-				printf("###");
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 5);
+				printf("###");
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 9);
 			}
 			else
 				printf("   ");

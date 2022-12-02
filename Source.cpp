@@ -29,6 +29,8 @@ int	Modulo(int nb, int mod);
 void HandlePlayer(char input);
 int rando(int a, int b);
 int check(int a, int b, int c, int d);
+void HandleBorder();
+int c = 10;
 
 /////////////////////////////////////////0
 
@@ -70,6 +72,7 @@ int main()
 		}
 		else
 		{
+	
 			HandlePlayer(input);
 			HandleEnemy();
 
@@ -94,7 +97,7 @@ int main()
 }
 
 /////////////////////////////////////////
-int c = 10; // keep even number or breaks enemy 1
+ // keep even number or breaks enemy 1
 void DrawMap()
 {
 	int y = 0;
@@ -126,7 +129,7 @@ void DrawMap()
 			else if (x == player.x && y == player.y)	//Player position
 				printf("-_-");
 			else if (x == object.x && y == object.y)
-				printf(" # ");
+				printf("###");
 			else
 				printf("   ");
 		}
@@ -167,9 +170,19 @@ void HandlePlayer(char input)
 		tempy++;
 
 	// Pacman style, based on a fixed size
-	player.x = Modulo(tempx, c);
-	player.y = Modulo(tempy, c);
+	
+	
+	if (!(tempx < 0) && !(tempx > c-1)) {
+		player.x = tempx;
+		//system("PAUSE>NULL");
+	}
+	if (!(tempy < 0) && !(tempy > c - 1)) {
+		player.y = tempy;
+		//system("PAUSE>NULL");
+	}
 }
+
+
 
 /////////////////////////////////////////
 
